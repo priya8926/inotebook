@@ -1,24 +1,14 @@
-<<<<<<< HEAD
-const express = require('express')
-const router =  express.Router();
 
-router.get('/' , (req , res) =>{
-    obj = {
-        a : 'this',
-        number : 34
-    }
-   res.json(obj)
-})
-=======
 const express = require('express')
-const router =  express.Router();
+const router = express.Router();
+const User = require('../models/User');
 
-router.get('/' , (req , res) =>{
-    obj = {
-        a : 'this',
-        number : 34
-    }
-   res.json(obj)
+
+// create a user using:POST "/api/auth/." doesn't require auth
+router.post('/', (req, res) => {
+    console.log(req.body);
+    const user = User(req.body);
+    user.save();
+    res.send(req.body);
 })
->>>>>>> 14ac03c (module and routes files are added)
 module.exports = router;
