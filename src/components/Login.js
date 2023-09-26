@@ -18,10 +18,11 @@ const Login = (props) => {
         if(json.success){
             // save the authtoken and redirect
             localStorage.setItem('token' , json.authtoken);
-            history("/")
+            history("/");
+            props.showAlert("Logged in successfully" , "success")
         }
         else{
-            alert("Invalid Login Details")
+            props.showAlert("Invalid Login Details" , "danger")
         }
     }
     const onChange = (e) => {

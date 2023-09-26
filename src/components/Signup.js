@@ -20,10 +20,11 @@ const Signup = (props) => {
     if(json.success){
       // save the authtoken and redirect
       localStorage.setItem('token' , json.authtoken);
-      history("/")
+      history("/");
+      props.showAlert("Accout created successfully" , "success")
   }
   else{
-      alert("Invalid Login Details")
+      props.showAlert("Invalid Details" , "danger")
   }
   }
   const onChange = (e) => {

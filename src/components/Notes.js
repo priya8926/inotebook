@@ -3,7 +3,7 @@ import noteContext from '../context/notes/noteContext';
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
 
-const Notes = () => {
+const Notes = (props) => {
     const context = useContext(noteContext);
     const { notes, getNotes, editNote } = context;
     useEffect(() => {
@@ -21,13 +21,14 @@ const Notes = () => {
     const handleClick = (e) => {
         editNote(note.id, note.etitle, note.edescription, note.etag)
         refClose.current.click();
+        props.showAlert("Updated  successfully" , "success")
     }
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
     }
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={props.showAlert} />
             <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch static backdrop modal
             </button>
@@ -42,11 +43,11 @@ const Notes = () => {
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="title" className="form-label">Title</label>
-                                    <input type="text" className="form-control" id="etitle" name="etitle" aria-describedby="emailHelp" value={note.etitle} onChange={onChange} minLength={5} required/>
+                                    <input type="text" className="form-control" id="etitle" name="etitle" aria-describedby="emailHelp" value={note.etitle} onChange={onChange} minLength={5} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="description" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} minLength={5} required/>
+                                    <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} minLength={5} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="tag" className="form-label">Tag</label>
@@ -56,7 +57,7 @@ const Notes = () => {
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button disabled={note.etitle.length<5 || note.edescription.length<5}  onClick={handleClick} type="button" className="btn btn-primary">Update Note</button>
+                            <button disabled={note.etitle.length < 5 || note.edescription.length < 5} onClick={handleClick} type="button" className="btn btn-primary">Update Note</button>
                         </div>
                     </div>
                 </div>
@@ -67,7 +68,7 @@ const Notes = () => {
                     {notes.length === 0 && 'No notes to display'}
                 </div>
                 {notes.map((notes) => {
-                    return <Noteitem key={notes._id} updateNote={updateNote} notes={notes} />
+                    return <Noteitem key={notes._id} showAlert={props.showAlert} updateNote={updateNote} notes={notes} />
                 })}
             </div>
         </>
