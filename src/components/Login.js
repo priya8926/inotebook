@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = (props) => {
     const [credential, setCredential] = useState({ email: "", password: "" })
-    const history = useNavigate();
+    let history = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -21,7 +21,7 @@ const Login = (props) => {
             history("/")
         }
         else{
-            alert("Invalid Login DEtails")
+            alert("Invalid Login Details")
         }
     }
     const onChange = (e) => {
@@ -31,9 +31,9 @@ const Login = (props) => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
+                    <label htmlFor="email" className="form-label">Email</label>
                     <input type="email" className="form-control" value={credential.email}onChange={onChange} id="email" name='email' aria-describedby="emailHelp" />
-                    <div id="emailHelp" className="form-text" >We'll never share your email with anyone else.</div>
+                    <div id="emailHelp" className="form-text d-none" >We'll never share your email with anyone else.</div>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
