@@ -21,22 +21,22 @@ function App() {
     },2000)
   }
   return (
-    <>
       <NoteState>
         <Router>
-          <Navbar />
+          <div>
+          <Navbar showAlert={showAlert}/>
           <Alert alert={alert}/>
           <div className="container">
             <Routes>
-              <Route exact path='/' element={<Home showAlert={showAlert}/>} />
-              <Route exact path='/about' element={<About />} />
-              <Route exact path='/login' element={<Login showAlert={showAlert} />} />
-              <Route exact path='/signup' element={<Signup showAlert={showAlert} />} />
+              <Route path='/' element={<Home showAlert={showAlert}/>} />
+              <Route path='/about' element={<About />} />
+              <Route path="/login" element={<Login showAlert={showAlert} />} />
+              <Route path='/signup' element={<Signup showAlert={showAlert} />} />
             </Routes>
+            </div>
           </div>
         </Router>
       </NoteState>
-    </>
   );
 }
 

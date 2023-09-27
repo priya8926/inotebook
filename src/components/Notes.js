@@ -1,14 +1,23 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import noteContext from '../context/notes/noteContext';
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
+import { useNavigate } from 'react-router-dom';
 
 const Notes = (props) => {
     const context = useContext(noteContext);
+    let navigate = useNavigate();
     const { notes, getNotes, editNote } = context;
     useEffect(() => {
-        getNotes()
-    }, [])
+
+        if (localStorage.getItem('token')) {
+            // Redirect to the login page if no token is found
+            getNotes();
+        } else {
+            // Fetch notes if the token is present
+            navigate('/login');
+        }
+    }, [navigate]);
     const ref = useRef(null)
     const refClose = useRef(null)
     const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
@@ -21,7 +30,7 @@ const Notes = (props) => {
     const handleClick = (e) => {
         editNote(note.id, note.etitle, note.edescription, note.etag)
         refClose.current.click();
-        props.showAlert("Updated  successfully" , "success")
+        props.showAlert("Updated  successfully", "success")
     }
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
@@ -64,12 +73,14 @@ const Notes = (props) => {
             </div>
             <div className="row my-3">
                 <h3>Your Notes</h3>
-                <div className="container mx-2">
-                    {notes.length === 0 && 'No notes to display'}
-                </div>
-                {notes.map((notes) => {
-                    return <Noteitem key={notes._id} showAlert={props.showAlert} updateNote={updateNote} notes={notes} />
-                })}
+                {Array.isArray(notes) && notes.length > 0 ? (
+                    notes.map((note) => (
+                        <Noteitem key={note._id} showAlert={props.showAlert} updateNote={updateNote} notes={note} />
+                    ))
+                ) : (
+                    <div>No notes to display</div>
+                )}
+
             </div>
         </>
     )

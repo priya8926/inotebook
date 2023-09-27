@@ -31,7 +31,8 @@ const Signup = (props) => {
     setCredential({ ...credential, [e.target.name]: e.target.value })
   }
   return (
-    <div className='container'>
+    <div className='container mt-2'>
+      <h3 className='my-2'>Create account</h3>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name</label>

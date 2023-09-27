@@ -4,7 +4,7 @@ import NoteContext from "./noteContext";
 const NoteState = (props) => {
   const host = "http://localhost:5000"
   const notesInitial = []
-  const [notes, setNotes] = useState(notesInitial)
+  const [notes, setNotes] = useState([])
 
 
   //Get all  Note
@@ -15,10 +15,13 @@ const NoteState = (props) => {
       method: 'GET',
       headers: {
         'content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwNmZhOGMyNjNiYmM5YWRmZTBlZjA1In0sImlhdCI6MTY5NDk1NjE5Mn0.x36pO4oX6EzanQj9BJbR9ow6jfT_yx9D2SxP0RpGCKU'
+        'auth-token': localStorage.getItem('token')
+
       }
     });
     const json = await response.json();
+    console.log(localStorage.getItem('token'));
+
     console.log(json);
     setNotes(json)
 
@@ -31,7 +34,7 @@ const NoteState = (props) => {
       method: 'POST',
       headers: {
         'content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwNmZhOGMyNjNiYmM5YWRmZTBlZjA1In0sImlhdCI6MTY5NDk1NjE5Mn0.x36pO4oX6EzanQj9BJbR9ow6jfT_yx9D2SxP0RpGCKU'
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag })
     });
@@ -45,7 +48,7 @@ const NoteState = (props) => {
       method: 'DELETE',
       headers: {
         'content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwNmZhOGMyNjNiYmM5YWRmZTBlZjA1In0sImlhdCI6MTY5NDk1NjE5Mn0.x36pO4oX6EzanQj9BJbR9ow6jfT_yx9D2SxP0RpGCKU'
+        'auth-token': localStorage.getItem('token')
       },
     });
     const json = await response.json();
@@ -61,7 +64,7 @@ const NoteState = (props) => {
       method: 'PUT',
       headers: {
         'content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwNmZhOGMyNjNiYmM5YWRmZTBlZjA1In0sImlhdCI6MTY5NDk1NjE5Mn0.x36pO4oX6EzanQj9BJbR9ow6jfT_yx9D2SxP0RpGCKU'
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag })
     });

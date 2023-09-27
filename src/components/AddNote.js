@@ -6,6 +6,7 @@ const AddNote = (props) => {
     const { addNote } = context;
 
     const [notes, setNotes] = useState({ title: "", description: "", tag: "" })
+    
     const handleClick = (e) => {
         e.preventDefault(); // page reload ni thay ena mate
         addNote(notes.title , notes.description , notes.tag);
@@ -31,7 +32,7 @@ const AddNote = (props) => {
                     <label htmlFor="tag" className="form-label">Tag</label>
                     <input type="text" className="form-control" id="tag" name="tag" onChange={onChange} minLength={5} required value={notes.tag}/>
                 </div>
-                <button disabled={notes.title.length<5 || notes.description.length<5} type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
+                <button disabled={notes.title.length<5 || notes.description.length<5} type="button" className="btn btn-primary" onClick={handleClick}>Add Note</button>
             </form>
         </div>
     )
